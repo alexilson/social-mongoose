@@ -4,6 +4,7 @@ const db = require('./config/connection');
 
 // added to test db, remove later
 const User = require('./models/User');
+const Thought = require('./models/Thought');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -20,3 +21,4 @@ db.once('open', () => {
 
 // added to test db, remove later
 const what = new User;
+const huh = new Thought;
