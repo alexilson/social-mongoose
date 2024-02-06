@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).send(err))
 });
 
+
 // returns a user based on the id in the parameter
 router.get('/:id', (req, res) => {
     User.findOne({
@@ -17,15 +18,19 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(500).send(err))
 });
 
+
 // create new user, include username and email in body json
 router.post('/', (req, res) => {
-    User.create({
+    // .init() will force it to wait until the index is done building so it can check for uniqueness
+    User.init().then(() => User
+    .create({
         username: req.body.username,
         email: req.body.email
-    })
+    }))
     .then(result => res.status(200).send(result))
     .catch(err => res.status(500).send(err))
 });
+
 
 // updates a user. does not allow username to be updated.
 router.put('/:id', (req, res) => {
