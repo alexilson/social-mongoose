@@ -1,17 +1,13 @@
 const express = require('express');
 const db = require('./config/connection');
-// const routes = require('./routes');
-
-// added to test db, remove later
-const User = require('./models/User');
-const Thought = require('./models/Thought');
+const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(routes);
+app.use(routes);
 
 db.once('open', () => {
     app.listen(PORT, () => {
@@ -20,5 +16,5 @@ db.once('open', () => {
 });
 
 // added to test db, remove later
-const what = new User;
-const huh = new Thought;
+// const Thought = require('./models/Thought');
+// const huh = new Thought;

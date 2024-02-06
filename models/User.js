@@ -22,12 +22,4 @@ const userSchema = new Schema(
 
 const User = model('user', userSchema);
 
-// creates a user so the db is created
-User.create({
-    username: "mrs_potts",
-    email: "test@test.test"
-})
-.then(result => console.log('Created new user', result))
-.catch(err => console.log("Error!", err));
-
 module.exports = User;
