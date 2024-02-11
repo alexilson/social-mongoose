@@ -4,17 +4,18 @@ const thoughtSchema = new Schema(
     {
         thoughtText: {
             type: String,
-            require: true,
+            required: true,
             // TODO: Limit 1 to 280 characters
         },
         createdAt: {
             type: Date,
+            default: Date.now
             // TODO: Set default value to the current timestamp
             // TODO: Use a getter method to format the timestamp on query
         },
         username: {
             type: String,
-            require: true
+            required: true
         },
         reactions: {
             type: String // TODO: Array of nested documents created with the reactionSchema (not a string)

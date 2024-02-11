@@ -4,13 +4,13 @@ const userSchema = new Schema(
     {
         username: {
             type: String,
-            require: true,
+            required: [true, "You should know this! Must include a username.<br>"],
             unique: true,
             trim: true
         },
         email: {
             type: String,
-            require: true
+            required: [true, "What are you hiding? Must include an email address.<br>"]
         },
         thoughts: {
             type: String // TODO: this should actually be an array of the thoughts model
