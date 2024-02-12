@@ -1,12 +1,6 @@
 const router = require('express').Router();
 const User = require('../../models/User')
 
-// returns all users
-// router.get('/', (req, res) => {
-//     User.find({})
-//     .then(results => res.json(results))
-//     .catch(err => res.status(500).send(err))
-// });
 
 router.get('/', (req, res) => {
     try {
@@ -19,9 +13,9 @@ router.get('/', (req, res) => {
 
 
 // returns a user based on the id in the parameter
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        User.findOne({
+        await User.findOne({
             _id: req.params.id
         })
         .then(results => res.status(200).json(results))

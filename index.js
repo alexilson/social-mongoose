@@ -18,3 +18,4 @@ db.once('open', () => {
 // added to test db, remove later
 // const Thought = require('./models/Thought');
 // const huh = new Thought;
+// console.log(Date.now().toString())
