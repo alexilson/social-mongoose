@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+const Thought = require('./Thought');
+
 
 const userSchema = new Schema(
     {
@@ -12,12 +14,18 @@ const userSchema = new Schema(
             type: String,
             required: [true, "What are you hiding? Must include an email address.<br>"]
         },
-        thoughts: {
-            type: String // TODO: this should actually be an array of the thoughts model
-        },
-        friends: {
-            type: String // TODO: this should actually be an array of the User model, self reference somehow
-        }
+        thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'student'
+            }
+        ],
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'user'
+            }
+        ]
         // TODO: Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
     }
 );

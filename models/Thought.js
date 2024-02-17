@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
+const reactionSchema = require('./Reaction');
 
 const thoughtSchema = new Schema(
     {
@@ -11,16 +12,13 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            // TODO: Use a getter method to format the timestamp on query
             get: formatTimestamp
         },
         username: {
             type: String,
             required: true
         },
-        reactions: {
-            type: String // TODO: Array of nested documents created with the reactionSchema (not a string)
-        }
+        reactions: [reactionSchema]
     },
     {
         toJSON: {
@@ -40,14 +38,18 @@ function formatTimestamp(timestamp) {
 
 const Thought = model('thought', thoughtSchema);
 
+const reactionData = [
+    { reactionBody: 'Cats', username: "derek" },
+    { reactionBody: 'Hello lurk more', username: "jesu" },
+  ];
+
 // creates a test thought so the db is created
 Thought.create({
     thoughtText: "I want some food.",
-    username: "mrs_potts"
+    username: "mrs_potts",
+    reactions: reactionData
 })
 .then(result => console.log('Created new thought', result))
 .catch(err => console.log("Error!", err));
-
-// whatever();
 
 module.exports = Thought;
