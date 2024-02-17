@@ -32,15 +32,15 @@ function formatTimestamp(timestamp) {
     return `${timestamp.toLocaleDateString()} at ${timestamp.toLocaleTimeString()}`
 }
 
-// thoughtSchema.virtual('timestamp').get(function () {
-//     return `${this.createdAt.toString()}`;
-// })
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+})
 
-const Thought = model('thought', thoughtSchema);
+const Thought = model('thought', thoughtSchema); 
 
 const reactionData = [
     { reactionBody: 'Cats', username: "derek" },
-    { reactionBody: 'Hello lurk more', username: "jesu" },
+    { reactionBody: 'Hello lurk more', username: "jesus" },
   ];
 
 // creates a test thought so the db is created
