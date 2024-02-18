@@ -6,13 +6,13 @@ const userSchema = new Schema(
     {
         username: {
             type: String,
-            required: [true, "You should know this! Must include a username.<br>"],
+            required: [true, "You should know this! Must include a username.<br>"], // custom error message
             unique: true,
             trim: true
         },
         email: {
             type: String,
-            required: [true, "What are you hiding? Must include an email address.<br>"]
+            required: [true, "What are you hiding? Must include an email address.<br>"] // custom error message
         },
         thoughts: [
             {
@@ -35,6 +35,7 @@ const userSchema = new Schema(
     }
 );
 
+// returns a count of the friends
 userSchema.virtual('friendCount').get(function () {
     return this.friends.length;
 });

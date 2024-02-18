@@ -29,10 +29,12 @@ const thoughtSchema = new Schema(
     }
 );
 
+// returns formatted timestamp converted to local time
 function formatTimestamp(timestamp) {
     return `${timestamp.toLocaleDateString()} at ${timestamp.toLocaleTimeString()}`
 }
 
+// returns a count of the reactions
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 })
