@@ -70,7 +70,8 @@ router.put('/:id', (req, res) => {
     // find by the id and update whatever fields were included in the body of the request (basically only email is valid to update)
     User.findByIdAndUpdate(
         req.params.id,
-        req.body
+        req.body,
+        {new: true}
     )
     .then(result => res.status(200).send(result))
     .catch(err => res.status(500).send(err))
