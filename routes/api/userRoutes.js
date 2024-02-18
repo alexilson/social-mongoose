@@ -86,4 +86,45 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
+
+router.post('/:userId/friends/:friendId', async (req, res) => {
+
+    try {
+        const friends = await User.findByIdAndUpdate(
+            req.params.userId,
+            { $addToSet: { friends: req.params.friendId }},
+            { new: true }
+        )
+
+        if (!friends) {
+            return res.status(404).json({ message: 'Friends not found.' });
+        }
+
+        res.status(200).json({ message:'Friend added! Friend count: ' + friends.friends.length});
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
+})
+
+router.delete('/:userId/friends/:friendId', async (req, res) => {
+
+    try {
+        const friends = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId }},
+            { new: true }
+        )
+
+        if (!friends) {
+            return res.status(404).json({ message: 'Friends not found.' });
+        }
+
+        res.status(200).json({ message:'Friend deleted!! Friend count: ' + friends.friends.length });
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
+})
+
 module.exports = router;
