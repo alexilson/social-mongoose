@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const User = require('../../models/User')
-
+const User = require('../../models/User');
+const Thought = require('../../models/Thought');
 
 router.get('/', (req, res) => {
     try {
@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
     try {
         await User.findOne({
             _id: req.params.id
-        })
+        }).populate(['thoughts', 'friends'])
         .then(results => res.status(200).json(results))
     } catch(err) {
         res.status(500).send(err)
@@ -79,12 +79,25 @@ router.put('/:id', (req, res) => {
 
 
 // delete a user
-router.delete('/:id', (req, res) => {
-    User.findByIdAndDelete(
-        req.params.id
-    )
-    .then(result => res.status(200).send(result))
-    .catch(err => res.status(500).send(err))
+router.delete('/:id', async (req, res) => {
+
+    try {
+        const user = await User.findByIdAndDelete(
+            req.params.id
+        )
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found." })
+        }
+
+        // deletes the user's thoughts
+        await Thought.deleteMany({ _id: { $in: user.thoughts }})
+        
+        res.status(200).send(user)
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 

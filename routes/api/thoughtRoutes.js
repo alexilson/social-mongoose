@@ -82,14 +82,10 @@ router.put('/:postId', async (req, res) => {
 
 router.delete('/:postId', async (req, res) => {
 
-    console.log("Trying to delete: ", req.params.postId)
-
     try {
         const thought = await Thought.findOneAndDelete(
             { _id: req.params.postId },
         )
-
-        console.log("Tried to delete :( ", thought)
 
         if (!thought) {
             return res.status(404).json({ message: "Thought not updated." })

@@ -24,7 +24,8 @@ const thoughtSchema = new Schema(
         toJSON: {
             virtuals: true,
             getters: true
-        }
+        },
+        id: false
     }
 );
 
@@ -37,19 +38,5 @@ thoughtSchema.virtual('reactionCount').get(function () {
 })
 
 const Thought = model('thought', thoughtSchema); 
-
-// const reactionData = [
-//     { reactionBody: 'Cats', username: "test" },
-//     { reactionBody: 'Hello lurk more', username: "jesus" },
-//   ];
-
-// // creates a test thought so the db is created
-// Thought.create({
-//     thoughtText: "I want some food.",
-//     username: "test",
-//     reactions: reactionData
-// })
-// .then(result => console.log('Created new thought', result))
-// .catch(err => console.log("Error!", err));
 
 module.exports = Thought;
